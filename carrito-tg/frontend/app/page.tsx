@@ -20,6 +20,9 @@ export default function Home() {
                                 <p className="card-text">{producto.descripcion}</p>
                                 <p><strong>Precio:</strong>{" "}L. {producto.precio}</p>
                                 <p><strong>ISV:</strong>{" "}L. {producto.isvProducto}</p>
+                              <button className="btn btn-primary w-100 mt-3">
+                                    Agregar al carrito
+                                </button>
                             </div>
                         </div>
                     </div>
