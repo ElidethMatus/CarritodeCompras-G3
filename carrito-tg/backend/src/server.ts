@@ -37,6 +37,38 @@ app.post("/api/carrito", async (req, res) => {
   }
 });
 
+app.put("/api/carrito/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+    const producto = await Carrito.findByPk(id);
+    if (producto) {
+      await producto.update(req.body);
+      res.status(200).json(producto);
+    } else {
+      res.status(404).json({ error: "Producto no encontrado" });
+    }
+  } catch (error) {
+    res.status(400).json({ error: "Error al editar el carrito" });
+  }
+});
+
+app.delete("/api/carrito/:idcarrito", async (req, res) => {
+  try {
+    const deleted = await Carrito.destroy({
+      where: { idcarrito: req.params.idcarrito },
+    });
+    if (deleted) {
+      res.status(200).json({ message: "Producto eliminado del carrito" });
+    } else {
+      res.status(404).json({ error: "Producto no encontrado" });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .json({ error: "Error al eliminar el producto del carrito" });
+  }
+});
+
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
