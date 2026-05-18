@@ -1,33 +1,25 @@
-import { data } from "./json/data";
+"use client";
+
+import { useContext } from "react";
+import { ContextCarrito } from "./context/contextCarrito";
+import { productos } from "./data/productos";
+import ProductoCard from "./components/ProductoCard";
+import ResumenOrden from "./components/ResumenOrden";
+
 export default function Home() {
-    return (
-        <div className="container mt-4">
+  const { carrito } = useContext(ContextCarrito);
 
-            <h1 className="text-center mb-4">Carrito de Compras</h1>
-            <div className="row">
-                {data.map((producto) => (
+  return (
+    <div className="container mt-4">
+      <h1 className="text-center mb-4">Carrito de Compras</h1>
 
-                    <div className="col-md-4 mb-4" key={producto.id}>
-                        <div className="card h-100 shadow">
-                            <img
-                                src={producto.imagen}
-                                className="card-img-top"
-                                alt={producto.nombre}/>
+      <ResumenOrden carrito={carrito} />
 
-                            <div className="card-body">
-                                <h5 className="card-title">{producto.nombre}</h5>
-
-                                <p className="card-text">{producto.descripcion}</p>
-                                <p><strong>Precio:</strong>{" "}L. {producto.precio}</p>
-                                <p><strong>ISV:</strong>{" "}L. {producto.isvProducto}</p>
-                              <button className="btn btn-primary w-100 mt-3">
-                                    Agregar al carrito
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-);
+      <div className="row">
+        {productos.map((producto) => (
+          <ProductoCard key={producto.id} producto={producto} />
+        ))}
+      </div>
+    </div>
+  );
 }
